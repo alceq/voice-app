@@ -10,16 +10,13 @@ import { Mic, Square, AlertCircle, Terminal } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function VoiceDemo() {
-    const [apiKey, setApiKey] = useState("");
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
         setIsMounted(true);
-        // Only safely access env vars and set defaults after mount to match hydration
-        setApiKey(process.env.NEXT_PUBLIC_OPENAI_API_KEY || "");
     }, []);
 
-    const { connect, disconnect, isConnected, isSessionActive, error, agentState, volume } = useOpenAIRealtime({ apiKey });
+    const { connect, disconnect, isConnected, isSessionActive, error, agentState, volume } = useOpenAIRealtime({});
 
     if (!isMounted) {
         // Return a placeholder structure that matches the server output as closely as possible,
@@ -62,20 +59,6 @@ export function VoiceDemo() {
                             </div>
                         </div>
 
-                        {/* API Key Input (if needed) */}
-                        {!apiKey && !isConnected && (
-                            <div className="mb-8">
-                                <label className="block font-mono text-sm mb-2 text-gray-400">ENTER OPENAI API KEY (Required for Demo)</label>
-                                <input
-                                    type="password"
-                                    className="w-full bg-white/10 border-2 border-white p-4 font-mono text-white focus:outline-none focus:border-accent"
-                                    placeholder="sk-..."
-                                    value={apiKey}
-                                    onChange={(e) => setApiKey(e.target.value)}
-                                />
-                            </div>
-                        )}
-
                         {/* Visualizer Area */}
                         <div className="h-64 bg-white/5 border-2 border-white/20 mb-8 flex items-center justify-center relative overflow-hidden">
                             {/* Grid Pattern */}
@@ -116,7 +99,6 @@ export function VoiceDemo() {
                                     size="xl"
                                     onClick={connect}
                                     className="w-full md:w-auto"
-                                    disabled={!apiKey}
                                 >
                                     INITIALIZE CONNECTION
                                 </Button>
