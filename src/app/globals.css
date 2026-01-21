@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #BFFF00; /* Electric Lime */
+  --accent-foreground: #000000;
+  
+  /* Brutalist Shadows */
+  --shadow-hard: 8px 8px 0px #000000; 
+  --shadow-hard-sm: 4px 4px 0px #000000;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --font-sans: var(--font-space-grotesk), monospace; /* Fallback to monospace for brutalist vibe */
+  --font-mono: var(--font-space-mono), monospace;
+
+  /* Custom Utilities for Brutalist Design */
+  --shadow-brutal: 8px 8px 0px 0px var(--color-foreground);
+  --shadow-brutal-sm: 4px 4px 0px 0px var(--color-foreground);
+  --shadow-brutal-accent: 8px 8px 0px 0px var(--color-accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Noise Overlay (Optional but requested) */
+/* Can be added as a pseudo-element or component */
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  background: var(--background);
+  border-left: 2px solid var(--foreground);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 2px solid var(--background); /* Creates a blocked look */
+  box-shadow: inset -2px -2px 0px var(--foreground);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
 }
