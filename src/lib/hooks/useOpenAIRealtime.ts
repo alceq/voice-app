@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 interface UseOpenAIRealtimeProps {
-    apiKey: string;
+    apiKey?: string;
 }
 
 export function useOpenAIRealtime({ apiKey }: UseOpenAIRealtimeProps) {
